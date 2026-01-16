@@ -1,0 +1,30 @@
+name: Validate Library Version and Create Release
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  validate-and-release:
+    name: Validate Library Version and Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Arduino Library Deploy
+        uses: Suzu-Gears/arduino-library-deploy@main
+        with:
+          lint-mode: 'submit'
+          target-branch: 'main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

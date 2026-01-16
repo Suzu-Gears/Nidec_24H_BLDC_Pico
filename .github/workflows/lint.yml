@@ -1,0 +1,18 @@
+name: Arduino Lint
+on:
+  push:
+    branches:
+      - develop
+    tags-ignore:
+      - 'v*.*.*'
+
+jobs:
+  lint:
+    name: Run Arduino Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/arduino-lint-action@v2
+        with:
+          library-manager: submit
+          compliance: strict

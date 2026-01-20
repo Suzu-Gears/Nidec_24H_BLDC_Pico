@@ -1,6 +1,7 @@
 #include <RP2040PIO_CAN.h>  // For RP2040, RP2350, etc.
 #include <DAMIAO_IMU_CAN.h>
 #include <Nidec_24H_BLDC_Pico.h>
+#include "Nidec_Robomas.h"
 #include "low_pass.h"
 
 const uint32_t CAN_TX_PIN = 0;
@@ -15,6 +16,16 @@ LowPassFilter filter;
 DamiaoImuCan imu(IMU_MASTER_ID, IMU_SLAVE_ID, &CAN1);
 NidecBLDC motor1{ 2, 3, 4, 5, 6, 10.0f };
 NidecBLDC motor2{ 7, 8, 9, 10, 11, 10.0f };
+
+NidecBLDC* motors[] = { &motor1, &motor2 };
+
+Note RobomasMelody[] = {
+  { 0, 0.00, 1000 },
+  { 32767, 533.0, 240 },
+  { 32767, 605.0, 240 },
+  { 32767, 795.0, 350 },
+  { 0, 0.00, 1000 }
+};
 
 void setup() {
   Serial.begin(115200);
@@ -45,7 +56,12 @@ void setup() {
     while (1);
   }
 
+  NidecSoundPlayer::playMelody(motors, 2, RobomasMelody, sizeof(RobomasMelody) / sizeof(Note));
+
   filter.init(0.01);
+
+  motor1.setZeroPoint();
+  motor2.setZeroPoint();
 }
 
 void loop() {

@@ -6,7 +6,7 @@
 
 #include <Arduino.h>
 
-#include <PicoEncoder.h>
+#include <PicoEncoder.h>  // src\PicoEncoder.cppでidle_stop_samples = 100;
 
 class NidecBLDC {
 public:
@@ -76,6 +76,10 @@ public:
 
   float getRpm() {
     return getRps() * 60.0f;
+  }
+
+  float getVelocity() {
+    return getRps() * 2 * M_PI;
   }
 
   float getRad() {

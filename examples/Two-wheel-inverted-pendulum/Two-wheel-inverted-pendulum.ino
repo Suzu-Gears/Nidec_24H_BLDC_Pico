@@ -30,7 +30,6 @@ Note RobomasMelody[] = {
 void setup() {
   Serial.begin(115200);
 
-  bool can_ok = false;
   CAN1.setTX(CAN_TX_PIN);
   CAN1.setRX(CAN_RX_PIN);
 

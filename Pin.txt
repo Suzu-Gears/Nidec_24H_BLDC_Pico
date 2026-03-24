@@ -1,0 +1,8 @@
+// Quad Motors
+NidecBLDC motor1{ 2, 3, 4, 5, 6, 1.0f };
+NidecBLDC motor2{ 7, 8, 9, 10, 11, 1.0f };
+NidecBLDC motor3{ 16, 17, 18, 19, 20, 20.0f };
+NidecBLDC motor4{ 21, 22, 26, 27, 28, 40.0f };
+
+// Single Motor
+NidecBLDC motor{ 28, 27, 26, 15, 14, 1.0f };
